@@ -2,10 +2,6 @@
 
 ### Likelihood
 
-> Can the pipeline refine questions?
-
-Yes. The pipeline can generate variations of each question to maximize the estimated likelihood score.
-
 > Are the questions guaranteed to be grammatical?
 
 No. People often speak ungrammatically. The goal is to capture the questions that people likely ask in small talk.
