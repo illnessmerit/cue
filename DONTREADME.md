@@ -10,6 +10,12 @@ No. There are issues with conversational datasets:
 
 - The settings are often artificial. SWITCHBOARD, for instance, features strangers who were told to discuss assigned topics over the phone.
 
+Instead, the pipeline mines the model's probability distribution.
+
+> Does the pipeline use an instruction-tuned model?
+
+No. Instruction-tuned models are fine-tuned to be helpful. That fine-tuning warps their probability distribution.
+
 > Are the questions guaranteed to be grammatical?
 
 No. People often speak ungrammatically. The goal is to capture the questions that people likely ask in conversation.
