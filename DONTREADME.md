@@ -20,6 +20,10 @@ No. Instruction-tuned models are fine-tuned to be helpful. That fine-tuning warp
 
 No. People often speak ungrammatically. The goal is to capture the questions that people likely ask in conversation.
 
+> Does an LLM as a judge assign the likelihood scores?
+
+No. The likelihood scores are the log probabilities the base model calculates during the search.
+
 ### Uniqueness
 
 > Can the pipeline deduplicate questions?
