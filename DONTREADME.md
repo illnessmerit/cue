@@ -4,7 +4,7 @@
 
 > Are the questions guaranteed to be grammatical?
 
-No. People often speak ungrammatically. The goal is to capture the questions that people likely ask in small talk.
+No. People often speak ungrammatically. The goal is to capture the questions that people likely ask in conversation.
 
 ### Uniqueness
 
