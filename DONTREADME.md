@@ -2,7 +2,7 @@
 
 ### Likelihood
 
-> Does the pipeline parse questions from a corpus?
+> Does `cue` parse questions from a corpus?
 
 No. There are issues with conversational datasets:
 
@@ -12,7 +12,7 @@ No. There are issues with conversational datasets:
 
 Instead, the pipeline mines the model's probability distribution.
 
-> Does the pipeline use an instruction-tuned model?
+> Does `cue` use an instruction-tuned model?
 
 No. Instruction-tuned models are fine-tuned to be helpful. That fine-tuning warps their probability distribution toward how an assistant should act rather than how humans talk.
 
