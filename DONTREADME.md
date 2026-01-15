@@ -2,6 +2,14 @@
 
 ### Likelihood
 
+> Does the pipeline parse questions from a corpus?
+
+No. There are issues with conversational datasets:
+
+- Most datasets are too small. In a limited sample, common patterns are easily missed while outliers may be overrepresented.
+
+- The settings are often artificial. SWITCHBOARD, for instance, features strangers who were told to discuss assigned topics over the phone.
+
 > Are the questions guaranteed to be grammatical?
 
 No. People often speak ungrammatically. The goal is to capture the questions that people likely ask in conversation.
