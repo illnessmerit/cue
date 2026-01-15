@@ -12,7 +12,7 @@ No. There are issues with conversational datasets:
 
 Instead, the pipeline mines the model's probability distribution.
 
-> Does `cue` use an instruction-tuned model?
+> Does `cue` use an instruction-tuned model to find candidates?
 
 No. Instruction-tuned models are fine-tuned to be helpful. That fine-tuning warps their probability distribution toward how an assistant should act rather than how humans talk.
 
