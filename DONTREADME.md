@@ -2,6 +2,30 @@
 
 ### Likelihood
 
+> Does an LLM as a judge assign the likelihood scores?
+
+No. The likelihood scores are the log probabilities.
+
+### Uniqueness
+
+> Can the pipeline deduplicate questions?
+
+Yes. The pipeline uses cosine similarity and connected components to group related questions and picks the one with the highest likelihood score from each group.
+
+### Quantity
+
+> How many questions does the pipeline generate?
+
+The goal is at least 1,000 questions.
+
+### Cost
+
+> What is the budget for generating and ranking the questions?
+
+The goal is to stay under $1,000.
+
+## Search
+
 > Does `cue` parse questions from a corpus?
 
 No. There are issues with conversational datasets:
@@ -35,25 +59,3 @@ Yes. It uses the prompt `She's like, "`. There are a few reasons:
 > Are the questions guaranteed to be grammatical?
 
 No. People often speak ungrammatically. The goal is to capture the questions that people likely ask in conversation.
-
-> Does an LLM as a judge assign the likelihood scores?
-
-No. The likelihood scores are the log probabilities the base model calculates during the search.
-
-### Uniqueness
-
-> Can the pipeline deduplicate questions?
-
-Yes. The pipeline uses cosine similarity and connected components to group related questions and picks the one with the highest likelihood score from each group.
-
-### Quantity
-
-> How many questions does the pipeline generate?
-
-The goal is at least 1,000 questions.
-
-### Cost
-
-> What is the budget for generating and ranking the questions?
-
-The goal is to stay under $1,000.
