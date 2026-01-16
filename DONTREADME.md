@@ -16,25 +16,25 @@ But they help favor natural phrasing over awkward or rare alternatives.
 
 ### Uniqueness
 
-> Can the pipeline deduplicate questions?
+> Can the pipeline deduplicate sentences?
 
-Yes. The pipeline uses cosine similarity and connected components to group related questions and picks the one with the highest likelihood score from each group.
+Yes. The pipeline uses cosine similarity and connected components to group related sentences and picks the one with the highest likelihood score from each group.
 
 ### Quantity
 
-> How many questions does the pipeline generate?
+> How many sentences does the pipeline generate?
 
-The goal is at least 1,000 questions.
+The goal is at least 1,000 sentences.
 
 ### Cost
 
-> What is the budget for generating and ranking the questions?
+> What is the budget for generating and ranking the sentences?
 
 The goal is to stay under $1,000.
 
 ## Search
 
-> Does `cue` parse questions from a corpus?
+> Does `cue` parse sentences from a corpus?
 
 No. There are issues with conversational datasets:
 
@@ -64,6 +64,6 @@ Yes. It uses the prompt `She's like, "`. There are a few reasons:
 
 - The opening quote primes the model for spoken dialogue.
 
-> Are the questions guaranteed to be grammatical?
+> Are the sentences guaranteed to be grammatical?
 
-No. People often speak ungrammatically. The goal is to capture the questions that people likely ask in conversation.
+No. People often speak ungrammatically. The goal is to capture the sentences that people likely ask in conversation.
