@@ -6,6 +6,12 @@
 
 No. The likelihood scores are the log probabilities a base model calculates during search.
 
+> Are the likelihood scores guaranteed to match real-world frequencies?
+
+No. The scores come from the model's distribution, not real-world counts. They're unlikely to match reality perfectly.
+
+But they help favor natural phrasing over awkward or rare alternatives.
+
 ### Uniqueness
 
 > Can the pipeline deduplicate questions?
