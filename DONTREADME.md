@@ -4,7 +4,9 @@
 
 > Does an LLM as a judge assign the likelihood scores?
 
-No. The likelihood scores are the log probabilities a base model calculates during search.
+No. Using an LLM as a judge to rank the list isn't straightforward. A full pairwise comparison would be quadratic and expensive. A faster method like Elo has its own problems, like figuring out when the ratings have stabilized.
+
+The likelihood scores are the log probabilities a model calculates during search.
 
 > Are the likelihood scores guaranteed to match real-world frequencies?
 
