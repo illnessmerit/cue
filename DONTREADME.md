@@ -67,3 +67,13 @@ No. People often speak ungrammatically. The goal is to capture the sentences tha
 No. Using an LLM as a judge to rank the list isn't straightforward. A full pairwise comparison would be quadratic and expensive. A faster method like Elo has its own problems, like figuring out when the ratings have stabilized.
 
 The likelihood scores are the log probabilities a model calculates during search.
+
+> Does `cue` only find questions?
+
+No. A question demands an answer, which creates a clear setup. But statements are cues, too. They're great for practicing how to react and build on a conversation.
+
+If you just want to drill questions, you can filter for a question mark in a spreadsheet.
+
+> Does `cue` filter out sentences that don't seem to stand on their own?
+
+No. The goal is a realistic training set. Conversation is full of sentences that refer back to the previous turn.
