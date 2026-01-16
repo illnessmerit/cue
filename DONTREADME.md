@@ -10,11 +10,23 @@ No. There are issues with conversational datasets:
 
 - The settings are often artificial. SWITCHBOARD, for instance, features strangers who were told to discuss assigned topics over the phone.
 
-Instead, the pipeline mines the model's probability distribution.
+Instead, `cue` mines the model's probability distribution.
 
 > Does `cue` use an instruction-tuned model to find candidates?
 
 No. Instruction-tuned models are fine-tuned to be helpful. That fine-tuning warps their probability distribution toward how an assistant should act rather than how humans talk.
+
+Instead, `cue` uses a base model.
+
+> Does `cue` use a base model with a prompt?
+
+Yes. It uses the prompt `She's like, "`. There are a few reasons:
+
+- Women outnumber men in the US, making `she` a more sensible default than `he`.
+
+- The phrasing `She's like` primes the model for a more casual completion than `She says`.
+
+- The opening quote primes the model for spoken dialogue.
 
 > Are the questions guaranteed to be grammatical?
 
