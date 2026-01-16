@@ -18,6 +18,10 @@ No. Instruction-tuned models are fine-tuned to be helpful. That fine-tuning warp
 
 Instead, `cue` uses a base model.
 
+> Does `cue` fine-tune a base model?
+
+No. Spontaneous conversation data is hard to find. Fine-tuning on artificially constructed data risks biasing the model toward the patterns of forced settings.
+
 > Does `cue` use a base model with a prompt?
 
 Yes. It uses the prompt `She's like, "`. There are a few reasons:
