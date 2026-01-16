@@ -2,12 +2,6 @@
 
 ### Likelihood
 
-> Does an LLM as a judge assign the likelihood scores?
-
-No. Using an LLM as a judge to rank the list isn't straightforward. A full pairwise comparison would be quadratic and expensive. A faster method like Elo has its own problems, like figuring out when the ratings have stabilized.
-
-The likelihood scores are the log probabilities a model calculates during search.
-
 > Are the likelihood scores guaranteed to match real-world frequencies?
 
 No. The scores come from the model's distribution, not real-world counts. They're unlikely to match reality perfectly.
@@ -67,3 +61,9 @@ Yes. It uses the prompt `She's like, "`. There are a few reasons:
 > Are the sentences guaranteed to be grammatical?
 
 No. People often speak ungrammatically. The goal is to capture the sentences that people likely ask in conversation.
+
+> Does an LLM as a judge assign the likelihood scores?
+
+No. Using an LLM as a judge to rank the list isn't straightforward. A full pairwise comparison would be quadratic and expensive. A faster method like Elo has its own problems, like figuring out when the ratings have stabilized.
+
+The likelihood scores are the log probabilities a model calculates during search.
