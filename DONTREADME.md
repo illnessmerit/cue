@@ -4,7 +4,7 @@
 
 > Does an LLM as a judge assign the likelihood scores?
 
-No. The likelihood scores are the log probabilities.
+No. The likelihood scores are the log probabilities a base model calculates during search.
 
 ### Uniqueness
 
