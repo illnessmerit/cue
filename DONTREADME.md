@@ -48,6 +48,12 @@ Instead, `cue` uses a base model.
 
 No. Spontaneous conversation data is hard to find. Fine-tuning on artificially constructed data risks biasing the model toward the patterns of forced settings.
 
+> What model does `cue` use to find and rank sentences?
+
+`cue` uses `Qwen3-30B-A3B-Base`. At the time of selection, its instruction-tuned counterpart, `Qwen3-30B-A3B-Instruct-2507`, was the highest-ranking model with fewer than 100B parameters on LMArena. I use the rank of the instruction-tuned version as a proxy to judge the quality of the base model. Its low VRAM footprint lets me run it at full precision on a single GPU.
+
+It also helps that the same family includes smaller models. I can iterate quickly on my development machine without worrying about inconsistencies when I move to production.
+
 > Does `cue` use a base model with a prompt?
 
 Yes. It uses the prompt `She's like, "`. There are a few reasons:
@@ -81,3 +87,11 @@ If you just want to drill questions, you can filter for a question mark in a spr
 > Does `cue` filter out sentences that don't seem to stand on their own?
 
 No. The goal is a realistic training set. Conversation is full of sentences that refer back to the previous turn.
+
+## Deduplication
+
+> What model does `cue` use to deduplicate sentences?
+
+`cue` uses `Qwen3-Embedding-8B`. At the time of selection, this was the highest-ranking model on the MTEB STS benchmark that included a GitHub repository and a public evaluation methodology.
+
+There is a fine-tuned version of this model called `Octen-Embedding-8B` that reported a slightly higher score. I passed on it because it lacked a repository and a public evaluation methodology.
