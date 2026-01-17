@@ -58,6 +58,10 @@ Yes. It uses the prompt `She's like, "`. There are a few reasons:
 
 - The opening quote primes the model for spoken dialogue.
 
+> Does `cue` use multiple prompts to produce a dataset?
+
+No. Combining samples from different contexts would likely lead to an unrepresentative distribution since the real world frequency of each context is unknown.
+
 > Are the sentences guaranteed to be grammatical?
 
 No. People often speak ungrammatically. The goal is to capture the sentences that people likely ask in conversation.
