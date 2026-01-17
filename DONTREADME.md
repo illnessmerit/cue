@@ -50,7 +50,7 @@ No. Spontaneous conversation data is hard to find. Fine-tuning on artificially c
 
 > What model does `cue` use to find and rank sentences?
 
-`cue` uses `Qwen3-30B-A3B-Base`. At the time of selection, its instruction-tuned counterpart, `Qwen3-30B-A3B-Instruct-2507`, was the highest-ranking model with fewer than 100B parameters on LMArena. I use the rank of the instruction-tuned version as a proxy to judge the quality of the base model. Its low VRAM footprint lets me run it at full precision on a single GPU.
+`cue` uses [`Qwen3-30B-A3B-Base`](https://huggingface.co/Qwen/Qwen3-30B-A3B-Base). At the time of selection, its instruction-tuned counterpart, [`Qwen3-30B-A3B-Instruct-2507`](https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507), was the highest-ranking model with fewer than 100B parameters on LMArena. I use the rank of the instruction-tuned version as a proxy to judge the quality of the base model. Its low VRAM footprint lets me run it at full precision on a single GPU.
 
 It also helps that the same family includes smaller models. I can iterate quickly on my development machine without worrying about inconsistencies when I move to production.
 
@@ -92,6 +92,6 @@ No. The goal is a realistic training set. Conversation is full of sentences that
 
 > What model does `cue` use to deduplicate sentences?
 
-`cue` uses `Qwen3-Embedding-8B`. At the time of selection, this was the highest-ranking model on the MTEB STS benchmark that included a GitHub repository and a public evaluation methodology.
+`cue` uses [`Qwen3-Embedding-8B`](https://huggingface.co/Qwen/Qwen3-Embedding-8B). At the time of selection, this was the highest-ranking model on the MTEB STS benchmark that included [a public evaluation methodology](https://github.com/QwenLM/Qwen3-Embedding/blob/main/README.md#evaluation).
 
-There is a fine-tuned version of this model called `Octen-Embedding-8B` that reported a slightly higher score. I passed on it because it lacked a repository and a public evaluation methodology.
+There is a fine-tuned version of this model called [`Octen-Embedding-8B`](https://huggingface.co/Octen/Octen-Embedding-8B) that reported a slightly higher score. I passed on it because it lacked a public evaluation methodology.
