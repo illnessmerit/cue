@@ -8,6 +8,14 @@ No. The scores come from the model's distribution, not real-world counts. They'r
 
 But they help favor natural phrasing over awkward or rare alternatives.
 
+> Does `cue` use the mean negative log-likelihood to score sentences?
+
+No. The score is the sum of the negative log-likelihoods (NLL).
+
+A sentence's probability is the product of its token probabilities. In log space, that product becomes a sum. So the sum of NLLs is the measure of the likelihood of the sentence.
+
+The mean would measure the average probability per token. That's a different calculation that introduces an artificial bias by normalizing for length.
+
 ### Uniqueness
 
 > Can the pipeline deduplicate sentences?
