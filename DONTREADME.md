@@ -34,7 +34,33 @@ The goal is at least 1,000 sentences.
 
 The goal is to stay under $1,000.
 
+## Setup
+
+> How do I set up the development environment?
+
+1. Install [devenv](https://github.com/cachix/devenv/blob/c6267b9343bbc96c88038765d02e2a2ad2a3b8a0/docs/src/getting-started.md#installation).
+
+1. Install [direnv](https://github.com/cachix/devenv/blob/c6267b9343bbc96c88038765d02e2a2ad2a3b8a0/docs/src/automatic-shell-activation.md#installing-direnv).
+
+1. Run the following commands:
+
+   ```sh
+   git clone git@github.com:8ta4/cue.git
+   cd cue
+   direnv allow
+   ```
+
+The `devenv.nix` file has got all the scripts you need.
+
 ## Search
+
+> How do I run a search?
+
+You run a search with the `search` command.
+
+```sh
+clj -M -m core search
+```
 
 > Does `cue` parse sentences from a corpus?
 
@@ -95,6 +121,26 @@ If you just want to drill questions, you can filter for a question mark in a spr
 > Does `cue` filter out sentences that don't seem to stand on their own?
 
 No. The goal is a realistic training set. Conversation is full of sentences that refer back to the previous turn.
+
+> Can a search run finish on its own?
+
+Yes. Each run is guided by a likelihood threshold. This threshold is the minimum score a sentence needs from the model to make it into the results. A run finishes on its own once it's found every sentence that makes the cut.
+
+> How do I specify the likelihood threshold for a run?
+
+You control the search by passing an exponent right after the `search` command.
+
+```sh
+clj -M -m core search 3
+```
+
+This exponent sets the bar for how probable a completion needs to be to make it into the results. The formula for this is:
+
+$$
+P(\text{completion} | \text{prompt}) \ge 10^{-\text{exponent}}
+$$
+
+So, if you pass a `3`, you're telling the search to only keep sentences that the model thinks have at least a one-in-a-thousand chance of occurring after the prompt.
 
 ## Deduplication
 
