@@ -112,11 +112,31 @@ No. Using an LLM as a judge to rank the list isn't straightforward. A full pairw
 
 The likelihood scores are the log probabilities a model calculates during search.
 
+> Can a sentence found by `cue` contain a double quote?
+
+No. That's the one character the pipeline prunes. Since the prompt `She's like, "` uses double quotes to frame the dialogue, another double quote inside the completion would create malformed output.
+
 > Does `cue` only find questions?
 
 No. A question demands an answer, which creates a clear setup. But statements are cues, too. They're great for practicing how to react and build on a conversation.
 
 If you just want to drill questions, you can filter for a question mark in a spreadsheet.
+
+> What marks the end of a sentence found by `cue`?
+
+The search terminates on the first occurrence of a period (`.`), question mark (`?`), or exclamation mark (`!`).
+
+> Can stopping on the first period create sentence fragments?
+
+Yes. If fragments show up, they can be fixed. The fix would involve running a targeted search starting from each fragment.
+
+> Can a sentence found by `cue` end with an ellipsis?
+
+Yes. How the pipeline handles an ellipsis depends on which of its two forms appears:
+
+- The three-dot ellipsis (`...`) can't be formed. The rule to stop on the first period prevents that sequence from coming together.
+
+- The single-character ellipsis (`…`) can be found. It'll likely lose to a version that ends in a period during deduplication.
 
 > Does `cue` filter out sentences that don't seem to stand on their own?
 
