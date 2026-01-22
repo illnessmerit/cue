@@ -164,6 +164,14 @@ So, if you pass a `3`, you're telling the search to only keep sentences that the
 
 ## Deduplication
 
+> How do I deduplicate the search results?
+
+You deduplicate the output from a search run with the `deduplicate` command.
+
+```sh
+clj -M -m core deduplicate
+```
+
 > What model does `cue` use to deduplicate sentences?
 
 `cue` uses [`Qwen3-Embedding-8B`](https://huggingface.co/Qwen/Qwen3-Embedding-8B). This is the highest-ranking model on the MTEB STS benchmark that includes [a public evaluation methodology](https://github.com/QwenLM/Qwen3-Embedding/blob/main/README.md#evaluation).
