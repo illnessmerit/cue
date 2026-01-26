@@ -86,7 +86,7 @@ No. Spontaneous conversation data is hard to find. Fine-tuning on artificially c
 
 `cue` uses [`Qwen3-30B-A3B-Base`](https://huggingface.co/Qwen/Qwen3-30B-A3B-Base). Its instruction-tuned counterpart, [`Qwen3-30B-A3B-Instruct-2507`](https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507), is the highest-ranking model with fewer than 100B parameters on [LMArena's Text Arena](https://lmarena.ai/leaderboard/text). I use the rank of the instruction-tuned version as a proxy to judge the quality of the base model. Its low VRAM footprint lets me run it at full precision on a single GPU.
 
-It also helps that the same family includes smaller models. I can iterate quickly on my development machine without worrying about inconsistencies when I move to production.
+It also helps that the same family includes smaller models. I can iterate quickly on my development machine without worrying about inconsistencies when I move to production. But for the production run, slow and steady wins the base.
 
 > Does `cue` use a base model with a prompt?
 
