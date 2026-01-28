@@ -56,11 +56,13 @@ The `devenv.nix` file has got all the scripts you need.
 
 > How do I run a search?
 
-You run a search with the `search` command.
+You run a search with the `candidates` command.
 
 ```sh
-clj -M -m core search
+clj -M -m core candidates
 ```
+
+This finds sentences and saves them to `data/candidates.ednl`.
 
 > Does `cue` parse sentences from a corpus?
 
@@ -164,13 +166,15 @@ So, if you pass a `3`, you're telling the search to only keep sentences that the
 
 ## Deduplication
 
-> How do I deduplicate the search results?
+> How do I deduplicate candidates?
 
-You deduplicate the output from a search run with the `deduplicate` command.
+You deduplicate the candidates with the `cues` command.
 
 ```sh
-clj -M -m core deduplicate
+clj -M -m core cues
 ```
+
+This deduplicates the candidates, ranks them, and saves the results to `data/cues.csv`.
 
 > What model does `cue` use to deduplicate sentences?
 
