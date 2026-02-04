@@ -42,6 +42,8 @@
   enterShell = ''
     hello         # Run scripts directly
     git --version # Use packages
+    # https://github.com/astral-sh/uv/blob/cd4973623485aeda775d2721dddd95c269fa131b/docs/guides/projects.md?plain=1#L237
+    source .devenv/state/venv/bin/activate
   '';
 
   # https://devenv.sh/tasks/
