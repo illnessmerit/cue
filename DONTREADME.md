@@ -153,7 +153,7 @@ Yes. Each run is guided by a likelihood threshold. This threshold is the minimum
 You control the search by passing an exponent right after the `search` command.
 
 ```sh
-clj -M -m core search 3
+clj -M -m core candidates 3
 ```
 
 This exponent sets the bar for how probable a completion needs to be to make it into the results. The formula for this is:
