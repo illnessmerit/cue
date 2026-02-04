@@ -1,0 +1,10 @@
+{
+  "calva.replConnectSequences": [
+    {
+      "autoSelectForJackIn": true,
+      "name": "cue",
+      "projectRootPath": ["."],
+      "projectType": "deps.edn"
+    }
+  ]
+}
