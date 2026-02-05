@@ -2,13 +2,13 @@
   (:require
    [clojure.string :refer [includes?]]
    [com.rpl.specter :refer [ALL BEGINNING setval]]
-   [libpython-clj2.python :refer [$a ->py-list from-import get-item initialize! py..]]))
+   [libpython-clj2.python :refer [$a ->py-list from-import get-item initialize! py.. with]]))
 
 (initialize!)
 
 (from-import builtins slice)
 
-(from-import torch tensor nn)
+(from-import torch nn no_grad tensor)
 
 (from-import transformers AutoModelForCausalLM AutoTokenizer)
 
@@ -57,7 +57,9 @@
   [token-sequences]
   (py.. nn
         -functional
-        (log_softmax (get-item (py.. (model (prepare-batch-tensor token-sequences) (prepare-mask-tensor token-sequences)) -logits)
+        (log_softmax (get-item (py.. (with [_ (no_grad)]
+                                           (model (prepare-batch-tensor token-sequences) (prepare-mask-tensor token-sequences)))
+                                     -logits)
                                [(slice nil) -1 (slice nil)]))))
 
 (defn decode*
