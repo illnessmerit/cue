@@ -14,3 +14,7 @@
 
 (def model
   ($a AutoModelForCausalLM from_pretrained model-name))
+
+(defn decode*
+  [x]
+  ($a tokenizer decode x))
