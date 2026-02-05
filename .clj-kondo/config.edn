@@ -1,0 +1,1 @@
+{:lint-as {libpython-clj2.python/from-import clojure.core/declare}}
