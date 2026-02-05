@@ -1,9 +1,14 @@
 (ns core
   (:require
    [clojure.string :refer [includes?]]
-   [libpython-clj2.python :refer [$a from-import initialize! py..]]))
+   [com.rpl.specter :refer [ALL BEGINNING setval]]
+   [libpython-clj2.python :refer [$a ->py-list from-import get-item initialize! py.. with]]))
 
 (initialize!)
+
+(from-import builtins slice)
+
+(from-import torch nn no_grad tensor)
 
 (from-import transformers AutoModelForCausalLM AutoTokenizer)
 
@@ -18,6 +23,44 @@
 
 (def prompt
   "She's like, \"")
+
+(defn pop-n
+  [n coll]
+  (if (or (zero? n) (empty? coll))
+    coll
+    (recur (dec n) (pop coll))))
+
+(def pad-token-id
+  (py.. tokenizer -pad_token_id))
+
+(def max-count
+  (comp (partial apply max)
+        (partial map count)))
+
+(def tensor*
+  (comp tensor ->py-list))
+
+(defn prepare-batch-tensor
+  [token-sequences]
+  (let [target (max-count token-sequences)]
+    (tensor* (map #(setval BEGINNING (repeat (- target (count %)) pad-token-id) %) token-sequences))))
+
+(defn prepare-mask-tensor
+  [token-sequences]
+  (let [target (max-count token-sequences)]
+    (->> token-sequences
+         (setval [ALL ALL] 1)
+         (map #(setval BEGINNING (repeat (- target (count %)) 0) %))
+         tensor*)))
+
+(defn predict
+  [token-sequences]
+  (py.. nn
+        -functional
+        (log_softmax (get-item (py.. (with [_ (no_grad)]
+                                           (model (prepare-batch-tensor token-sequences) (prepare-mask-tensor token-sequences)))
+                                     -logits)
+                               [(slice nil) -1 (slice nil)]))))
 
 (defn decode*
   [x]
