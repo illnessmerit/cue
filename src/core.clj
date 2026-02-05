@@ -19,6 +19,12 @@
 (def prompt
   "She's like, \"")
 
+(defn pop-n
+  [n coll]
+  (if (or (zero? n) (empty? coll))
+    coll
+    (recur (dec n) (pop coll))))
+
 (defn decode*
   [x]
   ($a tokenizer decode x))
