@@ -1,7 +1,7 @@
 (ns core
   (:require
    [clojure.string :refer [includes?]]
-   [com.rpl.specter :refer [BEGINNING setval]]
+   [com.rpl.specter :refer [ALL BEGINNING setval]]
    [libpython-clj2.python :refer [$a ->py-list from-import initialize! py..]]))
 
 (initialize!)
@@ -31,13 +31,25 @@
 (def pad-token-id
   (py.. tokenizer -pad_token_id))
 
+(def max-count
+  (comp (partial apply max)
+        (partial map count)))
+
+(def tensor*
+  (comp tensor ->py-list))
+
 (defn prepare-batch-tensor
   [token-sequences]
-  (let [target (apply max (map count token-sequences))]
+  (let [target (max-count token-sequences)]
+    (tensor* (map #(setval BEGINNING (repeat (- target (count %)) pad-token-id) %) token-sequences))))
+
+(defn prepare-mask-tensor
+  [token-sequences]
+  (let [target (max-count token-sequences)]
     (->> token-sequences
-         (map #(setval BEGINNING (repeat (- target (count %)) pad-token-id) %))
-         ->py-list
-         tensor)))
+         (setval [ALL ALL] 1)
+         (map #(setval BEGINNING (repeat (- target (count %)) 0) %))
+         tensor*)))
 
 (defn decode*
   [x]
