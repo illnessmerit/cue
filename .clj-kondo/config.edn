@@ -1,0 +1,3 @@
+{:lint-as {libpython-clj2.python/$a clj-kondo.lint-as/def-catch-all
+           libpython-clj2.python/from-import clj-kondo.lint-as/def-catch-all
+           libpython-clj2.python/py.. clj-kondo.lint-as/def-catch-all}}
