@@ -1,9 +1,12 @@
 (ns core
   (:require
    [clojure.string :refer [includes?]]
-   [libpython-clj2.python :refer [$a from-import initialize! py..]]))
+   [com.rpl.specter :refer [BEGINNING setval]]
+   [libpython-clj2.python :refer [$a ->py-list from-import initialize! py..]]))
 
 (initialize!)
+
+(from-import torch tensor)
 
 (from-import transformers AutoModelForCausalLM AutoTokenizer)
 
@@ -24,6 +27,17 @@
   (if (or (zero? n) (empty? coll))
     coll
     (recur (dec n) (pop coll))))
+
+(def pad-token-id
+  (py.. tokenizer -pad_token_id))
+
+(defn prepare-batch-tensor
+  [token-sequences]
+  (let [target (apply max (map count token-sequences))]
+    (->> token-sequences
+         (map #(setval BEGINNING (repeat (- target (count %)) pad-token-id) %))
+         ->py-list
+         tensor)))
 
 (defn decode*
   [x]
