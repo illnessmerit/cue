@@ -146,23 +146,15 @@ No. The goal is a realistic training set. Conversation is full of sentences that
 
 > Can a search run finish on its own?
 
-Yes. Each run is guided by a likelihood threshold. This threshold is the minimum score a sentence needs from the model to make it into the results. A run finishes on its own once it's found every sentence that makes the cut.
+Yes. The search is guided by a likelihood threshold. This threshold is the minimum score a sentence needs from the model to make it into the results. A run finishes on its own once it's found every sentence that makes the cut.
 
-> How do I specify the likelihood threshold for a run?
-
-You control the search by passing an exponent right after the `candidates` command.
-
-```sh
-clj -M -m core candidates 3
-```
-
-This exponent sets the bar for how probable a completion needs to be to make it into the results. The formula for this is:
+The threshold is controlled by the `exponent` constant. The formula is:
 
 $$
 P(\text{completion} | \text{prompt}) \ge 10^{-\text{exponent}}
 $$
 
-So, if you pass a `3`, you're telling the search to only keep sentences that the model thinks have at least a one-in-a-thousand chance of occurring after the prompt.
+For example, an `exponent` of 3 keeps only completions the model thinks have at least a one-in-a-thousand chance given the prompt.
 
 ## Deduplication
 
