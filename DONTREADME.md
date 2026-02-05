@@ -150,7 +150,7 @@ Yes. Each run is guided by a likelihood threshold. This threshold is the minimum
 
 > How do I specify the likelihood threshold for a run?
 
-You control the search by passing an exponent right after the `search` command.
+You control the search by passing an exponent right after the `candidates` command.
 
 ```sh
 clj -M -m core candidates 3
