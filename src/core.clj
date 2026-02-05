@@ -1,6 +1,7 @@
 (ns core
   (:require
-   [libpython-clj2.python :refer [$a from-import initialize!]]))
+   [clojure.string :refer [includes?]]
+   [libpython-clj2.python :refer [$a from-import initialize! py..]]))
 
 (initialize!)
 
@@ -18,3 +19,26 @@
 (defn decode*
   [x]
   ($a tokenizer decode x))
+
+(def vocab
+  (->> (py.. tokenizer -vocab_size)
+       inc
+       range
+       (map (juxt decode* identity))))
+
+(defn stop?
+  [s]
+  (or (includes? s ".")
+      (includes? s "?")
+      (includes? s "!")))
+
+(defn fragment?
+  [s]
+  (and (not (stop? s))
+       (includes? s "\"")))
+
+(def stop-tokens
+  (map last (filter (comp stop? first) vocab)))
+
+(def fragment-tokens
+  (map last (filter (comp fragment? first) vocab)))
