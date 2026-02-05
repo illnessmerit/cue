@@ -4,7 +4,13 @@
 
 (initialize!)
 
-(from-import transformers AutoTokenizer)
+(from-import transformers AutoModelForCausalLM AutoTokenizer)
+
+(def model-name
+  "Qwen/Qwen3-0.6B-Base")
 
 (def tokenizer
-  ($a AutoTokenizer from-pretrained "Qwen/Qwen3-0.6B-Base"))
+  ($a AutoTokenizer from_pretrained model-name))
+
+(def model
+  ($a AutoModelForCausalLM from_pretrained model-name))
