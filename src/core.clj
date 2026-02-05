@@ -16,6 +16,9 @@
 (def model
   ($a AutoModelForCausalLM from_pretrained model-name))
 
+(def prompt
+  "She's like, \"")
+
 (defn decode*
   [x]
   ($a tokenizer decode x))
