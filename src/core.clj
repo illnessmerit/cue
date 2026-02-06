@@ -1,5 +1,6 @@
 (ns core
   (:require
+   [clojure.math :refer [log]]
    [clojure.string :refer [includes?]]
    [com.rpl.specter :refer [ALL BEGINNING setval]]
    [libpython-clj2.python :refer [$a ->py-list from-import get-item initialize! py.. with]]))
@@ -23,6 +24,12 @@
 
 (def prompt
   "She's like, \"")
+
+(def exponent
+  1)
+
+(def threshold
+  (* exponent (log 10)))
 
 (defn pop-n
   [n coll]
