@@ -102,15 +102,15 @@
 
 (defn expand-node
   [predictions [prefix-sequence prefix-likelihood]]
-  (let [surviving-tokens (-> predictions
-                             ($a ge (- threshold prefix-likelihood))
-                             nonzero
-                             (py.. flatten)
-                             (py.. tolist))]
+  (let [surviving-tokens (remove fragment-tokens (-> predictions
+                                                     ($a ge (- threshold prefix-likelihood))
+                                                     nonzero
+                                                     (py.. flatten)
+                                                     (py.. tolist)))]
     (map (fn [token likelihood]
            [(setval AFTER-ELEM token prefix-sequence) (+ prefix-likelihood likelihood)])
          surviving-tokens
-         (py.. (get-item predictions surviving-tokens) tolist))))
+         (py.. (get-item predictions (->py-list surviving-tokens)) tolist))))
 
 (defn search-step
   [m]
