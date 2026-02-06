@@ -92,10 +92,10 @@
        (includes? s "\"")))
 
 (def stop-tokens
-  (map last (filter (comp stop? first) vocab)))
+  (set (map last (filter (comp stop? first) vocab))))
 
 (def fragment-tokens
-  (map last (filter (comp fragment? first) vocab)))
+  (set (map last (filter (comp fragment? first) vocab))))
 
 (def batch-size
   2)
