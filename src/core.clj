@@ -1,16 +1,16 @@
 (ns core
   (:require
-   [clojure.data.priority-map :refer [priority-map]]
+   [clojure.data.priority-map :refer [priority-map-by]]
    [clojure.math :refer [log]]
    [clojure.string :refer [includes?]]
-   [com.rpl.specter :refer [ALL BEGINNING setval]]
+   [com.rpl.specter :refer [AFTER-ELEM ALL BEGINNING setval]]
    [libpython-clj2.python :refer [$a ->py-list from-import get-item initialize! py.. with]]))
 
 (initialize!)
 
 (from-import builtins slice)
 
-(from-import torch nn no_grad tensor)
+(from-import torch nn no_grad nonzero tensor)
 
 (from-import transformers AutoModelForCausalLM AutoTokenizer)
 
@@ -100,10 +100,20 @@
 (def batch-size
   2)
 
-(defn expand
+(defn expand-node
+  [predictions [prefix-sequence prefix-likelihood]]
+  (let [surviving-tokens (py.. (py.. (nonzero ($a predictions ge (- threshold prefix-likelihood))) flatten) tolist)]
+    (map (fn [token likelihood]
+           [(setval AFTER-ELEM token prefix-sequence) (+ prefix-likelihood likelihood)])
+         surviving-tokens
+         (py.. (get-item predictions surviving-tokens) tolist))))
+
+(defn search-step
   [m]
-  (predict (map first (take batch-size m))))
+  (into (pop-n batch-size m) (mapcat expand-node
+                                     (predict (map first (take batch-size m)))
+                                     (take batch-size m))))
 
 (defn -main
   []
-  (expand (priority-map ($a tokenizer encode prompt) 0)))
+  (search-step (priority-map-by > ($a tokenizer encode prompt) 0)))
