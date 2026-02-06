@@ -1,5 +1,7 @@
 (ns core
   (:require
+   [clojure.data.priority-map :refer [priority-map]]
+   [clojure.math :refer [log]]
    [clojure.string :refer [includes?]]
    [com.rpl.specter :refer [ALL BEGINNING setval]]
    [libpython-clj2.python :refer [$a ->py-list from-import get-item initialize! py.. with]]))
@@ -23,6 +25,12 @@
 
 (def prompt
   "She's like, \"")
+
+(def exponent
+  1)
+
+(def threshold
+  (* exponent (log 10)))
 
 (defn pop-n
   [n coll]
@@ -88,3 +96,14 @@
 
 (def fragment-tokens
   (map last (filter (comp fragment? first) vocab)))
+
+(def batch-size
+  2)
+
+(defn expand
+  [m]
+  (predict (map first (take batch-size m))))
+
+(defn -main
+  []
+  (expand (priority-map ($a tokenizer encode prompt) 0)))
