@@ -30,7 +30,7 @@
   1)
 
 (def threshold
-  (* exponent (log 10)))
+  (- (* exponent (log 10))))
 
 (defn pop-n
   [n coll]
