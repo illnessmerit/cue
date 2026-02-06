@@ -97,6 +97,13 @@
 (def fragment-tokens
   (map last (filter (comp fragment? first) vocab)))
 
+(def batch-size
+  2)
+
+(defn expand
+  [m]
+  (predict (map first (take batch-size m))))
+
 (defn -main
   []
-  (priority-map prompt 0))
+  (expand (priority-map ($a tokenizer encode prompt) 0)))
