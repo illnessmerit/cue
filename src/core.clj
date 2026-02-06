@@ -1,5 +1,6 @@
 (ns core
   (:require
+   [clojure.data.priority-map :refer [priority-map]]
    [clojure.math :refer [log]]
    [clojure.string :refer [includes?]]
    [com.rpl.specter :refer [ALL BEGINNING setval]]
@@ -95,3 +96,7 @@
 
 (def fragment-tokens
   (map last (filter (comp fragment? first) vocab)))
+
+(defn -main
+  []
+  (priority-map prompt 0))
