@@ -3,8 +3,8 @@
    [clojure.data.priority-map :refer [priority-map-by]]
    [clojure.java.io :refer [file make-parents]]
    [clojure.math :refer [log]]
-   [clojure.string :refer [includes?]]
-   [com.rpl.specter :refer [AFTER-ELEM ALL BEGINNING setval]]
+   [clojure.string :refer [includes? join]]
+   [com.rpl.specter :refer [AFTER-ELEM ALL BEGINNING FIRST setval transform]]
    [libpython-clj2.python :refer [$a ->py-list from-import get-item initialize! py.. with]]))
 
 (initialize!)
@@ -107,6 +107,13 @@
 (def candidates-file
   (file data-directory "candidates.ednl"))
 
+(defn expand-node*
+  [prefix-sequence prefix-likelihood predictions surviving-tokens]
+  (map (fn [token likelihood]
+         [(setval AFTER-ELEM token prefix-sequence) (+ prefix-likelihood likelihood)])
+       surviving-tokens
+       (py.. (get-item predictions (->py-list surviving-tokens)) tolist)))
+
 (defn expand-node
   [[prefix-sequence prefix-likelihood] predictions]
   (let [surviving-tokens (remove fragment-tokens (-> predictions
@@ -114,10 +121,15 @@
                                                      nonzero
                                                      (py.. flatten)
                                                      (py.. tolist)))]
-    (map (fn [token likelihood]
-           [(setval AFTER-ELEM token prefix-sequence) (+ prefix-likelihood likelihood)])
-         surviving-tokens
-         (py.. (get-item predictions (->py-list surviving-tokens)) tolist))))
+    (edn-lines/spit candidates-file
+                    (->> surviving-tokens
+                         (filter stop-tokens)
+                         (expand-node* prefix-sequence prefix-likelihood predictions)
+                         (transform [ALL FIRST]
+                                    (comp join
+                                          (partial map decode*))))
+                    {:append? true})
+    (expand-node* prefix-sequence prefix-likelihood predictions (remove stop-tokens surviving-tokens))))
 
 (defn search-step
   [m]
