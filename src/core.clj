@@ -1,6 +1,7 @@
 (ns core
   (:require
    [clojure.data.priority-map :refer [priority-map-by]]
+   [clojure.java.io :refer [file make-parents]]
    [clojure.math :refer [log]]
    [clojure.string :refer [includes?]]
    [com.rpl.specter :refer [AFTER-ELEM ALL BEGINNING setval]]
@@ -100,6 +101,12 @@
 (def batch-size
   2)
 
+(def data-directory
+  "data")
+
+(def candidates-file
+  (file data-directory "candidates.ednl"))
+
 (defn expand-node
   [predictions [prefix-sequence prefix-likelihood]]
   (let [surviving-tokens (remove fragment-tokens (-> predictions
@@ -120,4 +127,5 @@
 
 (defn -main
   []
+  (make-parents data-directory)
   (search-step (priority-map-by > ($a tokenizer encode prompt) 0)))
