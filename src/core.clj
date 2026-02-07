@@ -133,12 +133,14 @@
 
 (defn search-step
   [m]
-  (->> m
-       (take batch-size)
-       (map first)
-       predict
-       (mapcat expand-node (take batch-size m))
-       (into (pop-n batch-size m))))
+  (when-not (empty? m)
+    (->> m
+         (take batch-size)
+         (map first)
+         predict
+         (mapcat expand-node (take batch-size m))
+         (into (pop-n batch-size m))
+         recur)))
 
 (defn -main
   []
