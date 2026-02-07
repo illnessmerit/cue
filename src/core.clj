@@ -133,9 +133,12 @@
 
 (defn search-step
   [m]
-  (into (pop-n batch-size m) (mapcat expand-node
-                                     (take batch-size m)
-                                     (predict (map first (take batch-size m))))))
+  (->> m
+       (take batch-size)
+       (map first)
+       predict
+       (mapcat expand-node (take batch-size m))
+       (into (pop-n batch-size m))))
 
 (defn -main
   []
