@@ -108,7 +108,7 @@
   (file data-directory "candidates.ednl"))
 
 (defn expand-node
-  [predictions [prefix-sequence prefix-likelihood]]
+  [[prefix-sequence prefix-likelihood] predictions]
   (let [surviving-tokens (remove fragment-tokens (-> predictions
                                                      ($a ge (- threshold prefix-likelihood))
                                                      nonzero
@@ -122,8 +122,8 @@
 (defn search-step
   [m]
   (into (pop-n batch-size m) (mapcat expand-node
-                                     (predict (map first (take batch-size m)))
-                                     (take batch-size m))))
+                                     (take batch-size m)
+                                     (predict (map first (take batch-size m))))))
 
 (defn -main
   []
